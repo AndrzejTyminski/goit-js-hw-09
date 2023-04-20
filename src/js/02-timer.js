@@ -16,7 +16,6 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    // console.log(selectedDates[0]);
 
     if (selectedDates[0] < options.defaultDate) {
       btnStartEl.disabled = true;
@@ -28,7 +27,6 @@ const options = {
 };
 
 const fp = flatpickr(inputEl, options);
-
 
 btnStartEl.addEventListener('click', onStartTimer);
 
