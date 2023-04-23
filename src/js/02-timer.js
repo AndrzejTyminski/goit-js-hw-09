@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const inputEl = document.querySelector('#datetime-picker');
 const btnStartEl = document.querySelector('[data-start]');
@@ -16,7 +17,6 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-
     if (selectedDates[0] < options.defaultDate) {
       btnStartEl.disabled = true;
       alert('Please choose a date in the future');
@@ -40,6 +40,7 @@ function onStartTimer() {
     const intervalTime = selectedTime - currentTime;
     if (intervalTime < 0) {
       clearInterval(intervalId);
+
       return;
     }
 
@@ -47,6 +48,16 @@ function onStartTimer() {
     hoursEl.textContent = convertMs(intervalTime).hours;
     minutesEl.textContent = convertMs(intervalTime).minutes;
     secondsEl.textContent = convertMs(intervalTime).seconds;
+
+    if (
+      secondsEl.textContent +
+        minutesEl.textContent +
+        hoursEl.textContent +
+        daysEl.textContent ==
+      0
+    ) {
+      Notify.success('The countdown is complete. RELOAD the page.');
+    }
   }, 1000);
 }
 
